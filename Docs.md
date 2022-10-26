@@ -40,12 +40,11 @@ Don't forget to .gitignore them!
 
 ### add the AWS-CDK to the project
 [AWS-CDK](https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html)
-remember: name the of the project should match the folder 
+**Remember:** name the of the project should match the folder 
 mkdir project-name
 cd project-name
 
 cdk init app --language typescript
-
 
 npm run build
 
@@ -55,10 +54,21 @@ cdk synth
 
 If you received an error like --app is required..., it's probably because you are running the command from a subdirectory. Navigate to the main app directory and try again.
 
-## Deploying the stack
-**remember:** to only deploy CloudFront when you need to at the end of the setup/build
+## Reorganising the project directories
+In the cdk directory:
+- remove any typescript files
+- add `"app": "node lib/project-name",` to the cdk.json
+- add `"bin": { "cdk": "lib/cdk-stack.js"},` to the package.json
 
-cdk deploy
+ **Remember:**  you need to add context in the CLI: 
+ - cdk bootstrap --context env=dev 
+ - cdk synth --context env=dev AWS-Auth-Frontend-dev
+ - cdk deploy --context env=dev AWS-Auth-Frontend-dev
+## Deploying the stack
+**Remember:** to only deploy CloudFront when you need to at the end of the setup/build
+
+- cd in to the cdk directory
+- cdk deploy
 
 To see these changes, we'll use the cdk diff command.
 
@@ -66,12 +76,12 @@ cdk diff
 
 ## AWS-CDK Constructs
 
-# CfnOutput
+### CfnOutput
 [CfnOutput](https://bobbyhadz.com/blog/aws-cdk-outputs)
 [AWS's docs](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.CfnOutput.html)
 CfnOutput- Outputs are values that we can import into other stacks or simply redirect to a file on the local file system. For instance, we can output the name of an S3 bucket or the domain name of an API.
 
-# CfnAuthorizer
+### CfnAuthorizer
 [AWS's docs](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-apigateway.CfnAuthorizer.html)
 The AWS::ApiGateway::Authorizer resource creates an authorization layer that API Gateway activates for methods that have authorization enabled. API Gateway activates the authorizer when a client calls those methods.
 
